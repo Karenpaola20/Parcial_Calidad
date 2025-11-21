@@ -1,0 +1,32 @@
+name: CI Calidad de Software - Evaluacion Calidad
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+      
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependencias
+        run: npm install
+      
+      - name: Ejecutar ESLint
+        run: npx eslint src --ext .ts
+
+      - name: Compilar TypeScript
+        run: npx tsc
+      
+      - name: Ejecutar pruebas con Coverage
+        run: npm test
