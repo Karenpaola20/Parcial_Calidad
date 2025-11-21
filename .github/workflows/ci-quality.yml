@@ -22,11 +22,20 @@ jobs:
       - name: Instalar dependencias
         run: npm install
       
+      - name: Dar permisos a ESLint
+        run: chmod +x ./node_modules/.bin/eslint
+      
       - name: Ejecutar ESLint
         run: npx eslint src --ext .ts
+      
+      - name: Dar permisos a TSC
+        run: chmod +x ./node_modules/.bin/tsc
 
       - name: Compilar TypeScript
         run: npx tsc
+
+      - name: Dar permisos a JEST
+        run: chmod +x ./node_modules/.bin/jest
       
       - name: Ejecutar pruebas con Coverage
         run: npm test
